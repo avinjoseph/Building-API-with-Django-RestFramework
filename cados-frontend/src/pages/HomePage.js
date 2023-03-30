@@ -13,11 +13,13 @@ const HomePage = () => {
     },[])
 
     let getData = async(query='') =>{
-        let response = await axios.get(`https://cados.up.railway.app/advocates?query=${query}`)
-        console.log(response.data.advocates)
-        setAdvocates(response.data.advocates)
-        setTotal(response.data.total)
-        setPagination(response.data.pagination)
+        //let response = await axios.get(`https://cados.up.railway.app/advocates?query=${query}`)
+        let response = await axios.get(`http://localhost:8000/advocates?query=${query}`)
+        console.log(response.data)
+        setAdvocates(response.data)
+        console.log(advocates)
+       // setTotal(response.data.total)
+        //setPagination(response.data.pagination)
     }
 
     let searchData = (e) =>{
@@ -29,7 +31,7 @@ const HomePage = () => {
 
   return (
     <div className='main--container'>
-        <h2>Search {total} developer advocates found by @dennisivy's webscraper and the TwitterAPI.</h2>
+        <h2>Search {total} developer advocates found by @Avin's webscraper and the TwitterAPI.</h2>
 
         <p>{pagination?.results_found} Developer advocates found</p>
 
@@ -41,7 +43,7 @@ const HomePage = () => {
         </div>
 
         <div className='advocate_list'>
-            {advocates.map((advocate,index) =>(
+            {advocates && advocates.map((advocate,index) =>(
                 <div key={index} className='advocate_preview_wrapper'>
                     <div className='advocate_preview_header'>
                         <Link to={`advocate/${advocate.username}`}>
